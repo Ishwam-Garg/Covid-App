@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:covid_app/Constants/ColorPalette.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  String  state = "Choose State";
+  String Month = DateTime.now().month.toString();
+  String Day = DateTime.now().day.toString();
+  String Year = DateTime.now().year.toString();
 
+
+  String  state = "Andhra Pradesh";
 
   List<String> States = ["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat",
     "Haryana","Himachal Pradesh","Jharkand","Karnataka","Kerela","Madhya Pradesh","Maharashtra","Manipur","Meghalaya",
@@ -35,8 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     gradient: LinearGradient(
                         begin: Alignment.topRight,
                         colors: [
-                          Color(0xFF3383CD),
-                          Color(0xFF11249F),
+                          ColorPalette.Gradient_Start,
+                          ColorPalette.Gradient_end,
                         ]
                     ),
                     image: DecorationImage(
@@ -48,10 +54,50 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     Align(
                       alignment: Alignment.topRight,
-                      child: GestureDetector(
-                        onTap: (){},
+                      child: PopupMenuButton(
+                          itemBuilder: (BuildContext context){
+                            return <PopupMenuEntry>[
+                              PopupMenuItem(
+                                  value: 0,
+                                  child: Row(children: [
+                                    Icon(Icons.person,color: ColorPalette.Icon_color,),
+                                    Text("Account"),
+                              ],)),
+
+                              PopupMenuItem(
+                                  value: 1,
+                                  child: Row(children: [
+                                    Icon(Icons.help,color: ColorPalette.Icon_color,),
+                                    Text("Help"),
+                              ],)),
+
+                              PopupMenuItem(
+                                  value: 2,
+                                  child: Row(children: [
+                                    Icon(Icons.info,color: ColorPalette.Icon_color,),
+                                    Text("About"),
+                                  ],)
+                              ),
+
+                              PopupMenuItem(
+                                  value: 3,
+                                  child: Row(children: [
+                                    Icon(Icons.settings,color: ColorPalette.Icon_color,),
+                                    Text("Settings"),
+                              ],)),
+                            ];
+                          },
+                          onSelected: (value){},
+                          child: SvgPicture.asset("assets/icons/menu.svg"),
+                      ),
+                      /*
+                      GestureDetector(
+                        onTap: (){
+
+                        },
                         child: SvgPicture.asset("assets/icons/menu.svg"),
                       ),
+                      */
                     ),
                     SizedBox(height: 20,),
                     Expanded(
@@ -123,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
-                              text: "Newest update October 17",
+                              text: "Newest update: $Day,$Month,$Year",
                               style: TextStyle(color: Colors.black26,fontWeight: FontWeight.bold,fontSize: 16)
                           ),
                         ],
@@ -150,14 +196,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Counter(color: Colors.black,
+                        Counter(color: Colors.red,
                           number: 1046,
                           title: "Deaths",
-                        ),Counter(color: Colors.redAccent,
-                          number: 1046,
+                        ),Counter(color: Colors.deepOrange,
+                          number: 11046,
                           title: "Infected",
                         ),Counter(color: Colors.green,
-                          number: 1046,
+                          number: 13046,
                           title: "Recovered",
                         ),
                       ],
